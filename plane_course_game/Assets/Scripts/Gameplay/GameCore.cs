@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Gameplay.CameraDir;
 using Gameplay.Core;
 using Gameplay.EventParamsDir;
 using Gameplay.InputDir;
@@ -7,7 +5,6 @@ using Infrastructure.Events;
 using Infrastructure.Factories;
 using Infrastructure.Services;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Gameplay
 {
@@ -16,48 +13,48 @@ namespace Gameplay
         #region Fields
 
         private IPlayerInput _playerInput;
-
+        private Vector3 _lastBlockPosition;
+        private int _blockSize = 30;
+        private float _gameSpeed = 40f;
         #endregion
 
         #region Methods
 
         private void SubscribeEvents()
         {
+            GameplayServices.EventBus.Subscribe(EventTypes.OnCourseBlockFinish, OnCourseBlockFinish);
         }
 
+        private void OnCourseBlockFinish(EventParams eventParams)
+        {
+            var eParams = eventParams as OnCourseBlockFinishEventParams;
+            eParams.CourseBlockPresenter.SetPosition(_lastBlockPosition);
+        }
 
         private void SetCourse()
         {
-            var pool = 10;
+            var pool = 20;
             for (var i = 0; i < pool; i++)
             {
                 var presenter = GameplayFactories.Instance.MesaBlockFactory.Create();
-                presenter.SetViewActive(Vector3.forward * (i * 30));
+                presenter.SetViewActive(Vector3.forward * (i * _blockSize));
+                presenter.MoveView(_gameSpeed);
             }
+            _lastBlockPosition = Vector3.forward * (pool-1) * _blockSize;
         }
-
-        private void RunCourse()
-        {
-        }
-
 
         private void Start()
         {
             SubscribeEvents();
-            // var playerSpawn = GameObject.FindGameObjectWithTag("PlayerSpawn");
             GameplayServices.CoroutineService
                 .WaitFor(1f)
                 .OnStart(() => { })
                 .OnEnd(() =>
                 {
                     SetCourse();
-                    //   var presenter =
-                    //     GameplayFactories.Instance.MvpPlayerFactory.Create(playerSpawn.transform.position);
-                    //  _playerInput = new PlayerInput(presenter);
-                    //   GameplayServices.UnityCore.RegisterUpdate(_playerInput as IUpdatable);
-                    //   var cameraController = new PlayerCameraController();
-                    //   cameraController.Initialize(presenter.ViewTransform);
-                    //  GameplayServices.UnityCore.RegisterUpdate(cameraController);
+                    var presenter = GameplayFactories.Instance.PlayerFactory.Create();
+                     _playerInput = new PlayerInput(presenter);
+                     GameplayServices.UnityCore.RegisterUpdate(_playerInput as IUpdatable);
                 });
         }
 

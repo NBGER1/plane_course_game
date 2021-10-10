@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Gameplay.CourseBlockDir
 {
@@ -9,15 +10,23 @@ namespace Gameplay.CourseBlockDir
 
         [SerializeField] private Transform _transform;
         [SerializeField] private GameObject _gameObject;
+        [SerializeField] private Transform _leftWall;
+        [SerializeField] private Transform _rightWall;
         #endregion
         #region Events
 
         public event Action OnFinish;
         
         #endregion
+        
         #region Methods
 
-        public void OnTriggerEnter(Collider other)
+        private void Start()
+        {
+            SetRandomRotation();
+        }
+
+        public void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("Finish"))
             {
@@ -25,6 +34,13 @@ namespace Gameplay.CourseBlockDir
             }
         }
 
+        public void SetRandomRotation()
+        {
+            var rndRotLeft = new Vector3(Random.Range(0,120f), Random.Range(0f, 120f), Random.Range(0f, 120f));
+            var rndRotRight = new Vector3(Random.Range(0,120f), Random.Range(0f, 120f), Random.Range(0f, 120f));
+            _leftWall.Rotate(rndRotLeft);
+            _rightWall.Rotate(rndRotRight);
+        }
         #endregion
 
         #region Properties

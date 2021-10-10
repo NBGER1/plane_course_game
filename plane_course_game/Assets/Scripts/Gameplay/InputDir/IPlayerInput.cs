@@ -1,4 +1,3 @@
-
 namespace Gameplay.InputDir
 {
     public interface IPlayerInput
@@ -6,9 +5,9 @@ namespace Gameplay.InputDir
         #region Methods
 
         //void SetPresenter(CharacterPresenter presenter);
-        void AttackRight();
         void MoveHorizontal(float force);
         void MoveVertical(float force);
+        void Fire();
 
         #endregion
     }

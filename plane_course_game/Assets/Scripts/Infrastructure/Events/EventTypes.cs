@@ -9,10 +9,8 @@ namespace Infrastructure.Events
         //# UI
         OnUIButtonClick,
         
-        //# Abilities
-        OnAbilityMeleeSwipe,
-        //# Props
-        OnBarrelDestroyed,
+        //# Course Blocks
+        OnCourseBlockFinish,
         //# Collectibles
         OnCollectibleCollect,
         //# Database

@@ -9,8 +9,9 @@ namespace Infrastructure.Factories
     {
         #region Editor
 
-        [SerializeField] private CourseBlockFactoryBase _mesaBlockFactory; 
-
+        [SerializeField] private CourseBlockFactoryBase _mesaBlockFactory;
+        [SerializeField] private PlayerFactory _playerFactory;
+        [SerializeField] private ProjectileFactoryBase _bulletProjectileFactory;
         #endregion
 
         #region Methods
@@ -25,6 +26,8 @@ namespace Infrastructure.Factories
         #region Properties
 
         public CourseBlockFactoryBase MesaBlockFactory => _mesaBlockFactory;
+        public PlayerFactory PlayerFactory => _playerFactory;
+        public ProjectileFactoryBase BulletProjectileFactory => _bulletProjectileFactory;
 
         #endregion
     }

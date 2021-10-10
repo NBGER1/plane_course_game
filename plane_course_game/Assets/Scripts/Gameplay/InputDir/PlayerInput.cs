@@ -1,4 +1,5 @@
 using Gameplay.Core;
+using Gameplay.PlayerDir;
 using UnityEngine;
 
 namespace Gameplay.InputDir
@@ -7,40 +8,37 @@ namespace Gameplay.InputDir
     {
         #region Fields
 
-     //   private CharacterPresenter _presenter;
+        private PlayerPresenter _presenter;
 
         #endregion
 
         #region Methods
 
-       // public PlayerInput(CharacterPresenter presenter)
-       // {
-      //      _presenter = presenter;
-      ///      _presenter.OnViewDestroyed += OnViewDestroyed;
-      //  }
+        public PlayerInput(PlayerPresenter presenter)
+        {
+            _presenter = presenter;
+            Debug.Log("Presenter set");
+            // _presenter. += OnViewDestroyed;
+        }
 
         private void OnViewDestroyed()
         {
-      //      _presenter = null;
-        }
-
-       // public void SetPresenter(CharacterPresenter presenter)
-      //  {
-      //  }
-
-        public void AttackRight()
-        {
-         //   _presenter?.OnAttackRight();
+            _presenter = null;
         }
 
         public void MoveHorizontal(float force)
         {
-            //_presenter?.OnMoveHorizontal(force);
+            _presenter.MoveHorizontal(force);
         }
 
         public void MoveVertical(float force)
         {
-           // _presenter?.OnMoveVertical(force);
+            _presenter.MoveVertical(force);
+        }
+
+        public void Fire()
+        {
+            _presenter.Fire();
         }
 
         #endregion
@@ -52,18 +50,14 @@ namespace Gameplay.InputDir
                 MoveHorizontal(Input.GetAxisRaw("Horizontal"));
             }
 
-            if (Input.GetAxis("Vertical") == 0)
-            {
-               // _presenter?.StopMoving();
-            }
-            else
+            if (Input.GetAxis("Vertical") != 0)
             {
                 MoveVertical(Input.GetAxisRaw("Vertical"));
             }
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetKey(KeyCode.Space))
             {
-                AttackRight();
+                Fire();
             }
         }
     }
