@@ -1,4 +1,8 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using Gameplay.Core;
+using Gameplay.CourseBlockDir;
 using Gameplay.EventParamsDir;
 using Gameplay.InputDir;
 using Infrastructure.Events;
@@ -13,9 +17,11 @@ namespace Gameplay
         #region Fields
 
         private IPlayerInput _playerInput;
-        private Vector3 _lastBlockPosition;
-        private int _blockSize = 30;
+        private int _blockSize = 50;
         private float _gameSpeed = 40f;
+        private Transform _lastBlockTransform;
+        private CourseBlockPresenter[] _presenters;
+        private bool _initialized = false;
         #endregion
 
         #region Methods
@@ -28,19 +34,36 @@ namespace Gameplay
         private void OnCourseBlockFinish(EventParams eventParams)
         {
             var eParams = eventParams as OnCourseBlockFinishEventParams;
-            eParams.CourseBlockPresenter.SetPosition(_lastBlockPosition);
+            GameplayServices.CoroutineService.RunCoroutine(
+                ResetBlockPosition(eParams.CourseBlockPresenter));
+        }
+
+        IEnumerator ResetBlockPosition(CourseBlockPresenter presenter)
+        {
+            yield return null;
+            var newPos = _lastBlockTransform.position + Vector3.forward * _blockSize;
+            presenter.SetPosition(newPos);
+            yield return null;
+            _lastBlockTransform = presenter.ViewTransform;
         }
 
         private void SetCourse()
         {
-            var pool = 20;
+            var pool = GameplayFactories.Instance.MesaBlockFactory.PoolSize;
+            Queue<CourseBlockPresenter> _queue = new Queue<CourseBlockPresenter>();
             for (var i = 0; i < pool; i++)
             {
                 var presenter = GameplayFactories.Instance.MesaBlockFactory.Create();
-                presenter.SetViewActive(Vector3.forward * (i * _blockSize));
+                presenter.SetViewActive();
+                presenter.SetPosition(Vector3.forward * (i * _blockSize));
                 presenter.MoveView(_gameSpeed);
+                _queue.Enqueue(presenter);
             }
-            _lastBlockPosition = Vector3.forward * (pool-1) * _blockSize;
+
+            _presenters = _queue.ToArray();
+            //  _lastBlockPosition = Vector3.forward * (pool - 1) * _blockSize;
+            _lastBlockTransform = _presenters[_presenters.Length - 1].ViewTransform;
+            _initialized = true;
         }
 
         private void Start()
@@ -53,11 +76,10 @@ namespace Gameplay
                 {
                     SetCourse();
                     var presenter = GameplayFactories.Instance.PlayerFactory.Create();
-                     _playerInput = new PlayerInput(presenter);
-                     GameplayServices.UnityCore.RegisterUpdate(_playerInput as IUpdatable);
+                    _playerInput = new PlayerInput(presenter);
+                    GameplayServices.UnityCore.RegisterUpdate(_playerInput as IUpdatable);
                 });
         }
-
         #endregion
     }
 }

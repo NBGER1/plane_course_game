@@ -12,7 +12,7 @@ namespace Gameplay.CourseBlockDir
 
         private CourseBlockModel _model;
         private CourseBlockView _view;
-
+        private float _moveSpeed;
         #endregion
 
         #region Constructor
@@ -34,15 +34,16 @@ namespace Gameplay.CourseBlockDir
 
         public void MoveView(float speed)
         {
-            GameplayServices.CoroutineService.RunCoroutine(Move(speed));
+            _moveSpeed = speed;
+            GameplayServices.CoroutineService.RunCoroutine(Move());
         }
 
-        private IEnumerator Move(float speed)
+        private IEnumerator Move()
         {
             while (true)
             {
                 yield return null;
-                _view.Transform.position -= Vector3.forward * Time.deltaTime * speed;
+                _view.Transform.position -= Vector3.forward * Time.deltaTime * _moveSpeed;
             }
         }
 
@@ -57,10 +58,9 @@ namespace Gameplay.CourseBlockDir
             return _view.GameObject.activeInHierarchy;
         }
 
-        public void SetViewActive(Vector3 position)
+        public void SetViewActive()
         {
             _view.GameObject.SetActive(true);
-            _view.Transform.position = position;
         }
 
         public void SetPosition(Vector3 position)
@@ -68,6 +68,12 @@ namespace Gameplay.CourseBlockDir
             _view.SetRandomRotation();
             _view.Transform.position = position;
         }
+
+        #endregion
+
+        #region Properties
+
+        public Transform ViewTransform => _view.Transform;
 
         #endregion
     }

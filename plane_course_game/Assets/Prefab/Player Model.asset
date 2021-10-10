@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 10
   _rotationSpeed: 100
+  _maxAmmo: 0
+  _shotInterval: 0.25

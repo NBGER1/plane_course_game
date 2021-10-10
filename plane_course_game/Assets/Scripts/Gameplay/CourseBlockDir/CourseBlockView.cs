@@ -10,8 +10,8 @@ namespace Gameplay.CourseBlockDir
 
         [SerializeField] private Transform _transform;
         [SerializeField] private GameObject _gameObject;
-        [SerializeField] private Transform _leftWall;
-        [SerializeField] private Transform _rightWall;
+        [SerializeField] private Transform[] _rotatingObjects;
+        [SerializeField] private Transform[] _rotatingSideways;
         #endregion
         #region Events
 
@@ -36,10 +36,15 @@ namespace Gameplay.CourseBlockDir
 
         public void SetRandomRotation()
         {
-            var rndRotLeft = new Vector3(Random.Range(0,120f), Random.Range(0f, 120f), Random.Range(0f, 120f));
-            var rndRotRight = new Vector3(Random.Range(0,120f), Random.Range(0f, 120f), Random.Range(0f, 120f));
-            _leftWall.Rotate(rndRotLeft);
-            _rightWall.Rotate(rndRotRight);
+            foreach (var obj in _rotatingObjects)
+            {
+                obj.Rotate(new Vector3(Random.Range(0, 120f), Random.Range(0f, 120f), Random.Range(0f, 120f)));
+            }
+            foreach (var obj in _rotatingSideways)
+            {
+                obj.Rotate(new Vector3(0f, 0f, Random.Range(0f, 120f)));
+            }
+          
         }
         #endregion
 

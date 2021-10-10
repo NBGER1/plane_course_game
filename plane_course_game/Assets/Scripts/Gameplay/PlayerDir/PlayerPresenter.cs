@@ -45,7 +45,7 @@ namespace Gameplay.PlayerDir
             Quaternion currentRotation = _view.Transform.rotation;
             Quaternion wantedRotation = Quaternion.Euler(Vector3.forward * -45f * force);
             _view.Transform.rotation =
-                Quaternion.RotateTowards(currentRotation, wantedRotation, Time.time * Time.deltaTime);
+                Quaternion.RotateTowards(currentRotation, wantedRotation, _model.RotationSpeed * Time.deltaTime);
         }
 
         public void MoveVertical(float force)
@@ -54,23 +54,23 @@ namespace Gameplay.PlayerDir
             Quaternion currentRotation = _view.Transform.rotation;
             Quaternion wantedRotation = Quaternion.Euler(Vector3.up * -45f * force);
             _view.Transform.rotation =
-                Quaternion.RotateTowards(currentRotation, wantedRotation, Time.time * Time.deltaTime);
+                Quaternion.RotateTowards(currentRotation, wantedRotation, _model.RotationSpeed * Time.deltaTime);
         }
 
         public void Fire()
         {
             GameplayServices.CoroutineService.RunCoroutine(FireGuns());
-            if(!_view.AudioSource.isPlaying)
-            _view.AudioSource.PlayOneShot(_view.FireSFX);
+            if (!_view.AudioSource.isPlaying)
+                _view.AudioSource.PlayOneShot(_view.FireSFX);
         }
 
         IEnumerator FireGuns()
         {
             var projectileLeft = GameplayFactories.Instance.BulletProjectileFactory.Create();
-            projectileLeft.Fire(_view.LeftFireOutput.position);
+            projectileLeft?.Fire(_view.LeftFireOutput.position);
             yield return null;
             var projectileRight = GameplayFactories.Instance.BulletProjectileFactory.Create();
-            projectileRight.Fire(_view.RightFireOutput.position);
+            projectileRight?.Fire(_view.RightFireOutput.position);
         }
 
         #endregion

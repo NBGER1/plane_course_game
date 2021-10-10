@@ -10,7 +10,7 @@ namespace Gameplay.FactoriesDir
     {
         #region Fields
 
-        [SerializeField] protected float _poolSize;
+        [SerializeField] protected int _poolSize;
         [SerializeField] protected Object _view;
         [SerializeField] protected CourseBlockModel _model;
         protected CourseBlockPresenter[] _presenters;
@@ -48,6 +48,12 @@ namespace Gameplay.FactoriesDir
 
             return null;
         }
+
+        #endregion
+
+        #region Properties
+
+        public int PoolSize => _poolSize;
 
         #endregion
     }
