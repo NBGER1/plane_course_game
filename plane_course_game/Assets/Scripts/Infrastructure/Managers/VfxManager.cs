@@ -38,23 +38,9 @@ namespace Infrastructure.Managers
 
         private void SubscribeEvents()
         {
-            GameplayServices.EventBus.Subscribe(EventTypes.OnBarrelDestroyed, OnBarrelDestroyed);
-            GameplayServices.EventBus.Subscribe(EventTypes.OnCollectibleCollect, OnCollectibleCollect);
         }
 
-        private void OnCollectibleCollect(EventParams obj)
-        {
-            var eParams = obj as OnCollectibleCollectEventParams;
-            var fx = (GameObject) Instantiate(_model.GoldCollectibleVfx, eParams.Position, Quaternion.identity);
-            fx.transform.LookAt(_cameraTransform);
-        }
-
-        private void OnBarrelDestroyed(EventParams obj)
-        {
-            var eParams = obj as OnPropDestroyedEventParams;
-            var fx = (GameObject)Instantiate(_model.BarrelDestroyedVfx, eParams.Position, Quaternion.identity);
-            fx.transform.LookAt(_cameraTransform);
-        }
+ 
 
         #endregion
     }

@@ -1,3 +1,5 @@
+using System;
+using Gameplay.FactoriesDir;
 using Infrastructure.Abstracts;
 using UnityEngine;
 
@@ -7,7 +9,7 @@ namespace Infrastructure.Factories
     {
         #region Editor
 
- 
+        [SerializeField] private CourseBlockFactoryBase _mesaBlockFactory; 
 
         #endregion
 
@@ -22,7 +24,7 @@ namespace Infrastructure.Factories
 
         #region Properties
 
-    
+        public CourseBlockFactoryBase MesaBlockFactory => _mesaBlockFactory;
 
         #endregion
     }
