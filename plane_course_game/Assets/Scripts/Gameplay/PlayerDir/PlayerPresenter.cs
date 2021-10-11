@@ -27,6 +27,8 @@ namespace Gameplay.PlayerDir
         private float _maxLeft = -6;
         private float _maxRight = 6;
 
+        private bool _playerInvulnerable;
+
         #endregion
 
         #region Constructor
@@ -36,6 +38,7 @@ namespace Gameplay.PlayerDir
             _model = model;
             _view = view;
 
+            SubscribeViewEvents();
             SubscribeModelEvents();
             _model.AddAmmo(_model.MaxAmmo);
             _model.AddHealth(_model.MaxHealth);
@@ -56,6 +59,16 @@ namespace Gameplay.PlayerDir
             _model.OnRemoveHealth += OnRemoveHealth;
         }
 
+        private void SubscribeViewEvents()
+        {
+            _view.OnCollisionEvent += OnCollisionEvent;
+        }
+
+        private void OnCollisionEvent(Collider obj)
+        {
+            _model.RemoveHealth(_model.OnCollisionDamage);
+        }
+
         private void OnZeroHealth()
         {
             //TODO reset
@@ -63,8 +76,16 @@ namespace Gameplay.PlayerDir
 
         private void OnRemoveHealth()
         {
-            //TODO view damage 
-            OnHealthChange();
+            if (_playerInvulnerable) return;
+            GameplayServices.CoroutineService
+                .WaitFor(_model.InvulnerabilityDuration)
+                .OnStart(() =>
+                {
+                    _playerInvulnerable = true;
+                    _view.Animator.SetTrigger(_view.TakeDamageAnimation);
+                    OnHealthChange();
+                })
+                .OnEnd(() => { _playerInvulnerable = false; });
         }
 
         private void OnAmmoChange()
@@ -75,7 +96,7 @@ namespace Gameplay.PlayerDir
 
         private void OnHealthChange()
         {
-            var eParams = new OnHealthChangeEventParams(_model.Ammo);
+            var eParams = new OnHealthChangeEventParams(_model.Health);
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerHealthChange, eParams);
         }
 
@@ -123,7 +144,7 @@ namespace Gameplay.PlayerDir
 
         public void Fire()
         {
-            if (_model.Ammo == 0) return;
+            if (_model.Ammo == 0 || _playerInvulnerable) return;
             _model.RemoveAmmo(2);
             GameplayServices.CoroutineService.RunCoroutine(FireGuns());
             if (!_view.AudioSource.isPlaying)

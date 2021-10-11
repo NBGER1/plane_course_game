@@ -17,6 +17,8 @@ namespace Gameplay.PlayerDir
         [SerializeField] private float _maxHeight;
         [SerializeField] private float _minHeight;
         [SerializeField] private float _maxSide;
+        [SerializeField] private float _onCollisionDamage;
+        [SerializeField] private float _invulnerabilityDuration;
         #endregion
 
         #region Events
@@ -70,6 +72,8 @@ namespace Gameplay.PlayerDir
         #endregion
         #region Properties
 
+        public float InvulnerabilityDuration => _invulnerabilityDuration;
+        public float OnCollisionDamage => _onCollisionDamage;
         public float MaxHealth => _maxHealth;
         public float Health => _health;
         public float ReloadTime => _reloadTime;

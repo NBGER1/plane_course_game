@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player Model
   m_EditorClassIdentifier: 
   _reloadTime: 1
-  _maxHealth: 0
+  _maxHealth: 100
   _speed: 15
   _rotationSpeed: 25
   _maxAmmo: 50
@@ -21,3 +21,5 @@ MonoBehaviour:
   _maxHeight: 13
   _minHeight: 5
   _maxSide: 12
+  _onCollisionDamage: 15
+  _invulnerabilityDuration: 1.5
