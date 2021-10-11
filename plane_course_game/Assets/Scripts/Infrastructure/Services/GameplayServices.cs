@@ -36,6 +36,7 @@ namespace Infrastructure.Services
 
             var gcgo = new GameObject("GameCore");
             _gameCore = gcgo.AddComponent<GameCore>();
+            
         }
 
         #endregion
