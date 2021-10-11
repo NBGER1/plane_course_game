@@ -1,9 +1,10 @@
 
+using Infrastructure.Events;
 using UnityEngine;
 
 namespace Gameplay.EventParamsDir
 {
-    public class OnTargetCollisionEventParams
+    public class OnTargetCollisionEventParams : EventParams
     {
         #region Fields
 

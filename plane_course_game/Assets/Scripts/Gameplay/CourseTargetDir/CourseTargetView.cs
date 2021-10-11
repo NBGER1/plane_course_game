@@ -15,6 +15,7 @@ namespace Gameplay.CourseTargetDir
         [SerializeField] private AudioClip _onHitSFX;
         [SerializeField] private CourseTargetTrigger _collider;
         [SerializeField] private GameObject _VFXObject;
+        [SerializeField] private GameObject _targetObject;
         #endregion
 
         #region Events
@@ -38,6 +39,7 @@ namespace Gameplay.CourseTargetDir
         #endregion
         #region Properties
 
+        public GameObject TargetObject => _targetObject;
         public GameObject VFXObject => _VFXObject;
         public Transform Transform => _transform;
         public GameObject GameObject => _gameObject;

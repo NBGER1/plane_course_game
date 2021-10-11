@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GizmoSlots.Models
 {
-    [CreateAssetMenu(menuName = "Gizmo Slots/Models/Player Model", fileName = "Player Model")]
+    [CreateAssetMenu(menuName = "Gameplay/Models/Player Model", fileName = "Player Model")]
     [Serializable]
     public class PlayerModel : ScriptableObject
     {

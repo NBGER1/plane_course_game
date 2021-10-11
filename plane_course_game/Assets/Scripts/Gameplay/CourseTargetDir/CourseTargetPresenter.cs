@@ -43,10 +43,11 @@ namespace Gameplay.CourseTargetDir
             if (_isHit) return;
             _isHit = true;
             _view.VFXObject.SetActive(false);
+            _view.TargetObject.SetActive(false);
             GameplayServices.CoroutineService.RunCoroutine(PlaySFXAndSetInactive());
-            //   var position = _view.Transform.position;
-            //  var eParams = new OnProjectileCollisionEventParams(position);
-            //  GameplayServices.EventBus.Publish(EventTypes.OnProjectileCollision, eParams);
+            var position = _view.Transform.position;
+            var eParams = new OnTargetCollisionEventParams(position, _model.Score);
+            GameplayServices.EventBus.Publish(EventTypes.OnTargetCollision, eParams);
         }
 
         IEnumerator PlaySFXAndSetInactive()
@@ -61,6 +62,7 @@ namespace Gameplay.CourseTargetDir
         {
             _view.GameObject.SetActive(true);
             _view.VFXObject.SetActive(true);
+            _view.TargetObject.SetActive(true);
         }
 
         public void SetViewInactive()

@@ -39,12 +39,20 @@ namespace Infrastructure.Managers
         private void SubscribeEvents()
         {
             GameplayServices.EventBus.Subscribe(EventTypes.OnProjectileCollision, OnProjectileCollision);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnTargetCollision, OnTargetCollision);
+        }
+
+        private void OnTargetCollision(EventParams obj)
+        {
+            var eParams = obj as OnTargetCollisionEventParams;
+            var fx = (GameObject) Instantiate(_model.ProjectileHitVfx, eParams.Position, Quaternion.identity);
+            fx.transform.LookAt(_cameraTransform);
         }
 
         private void OnProjectileCollision(EventParams obj)
         {
-           // var eParams = obj as OnProjectileCollisionEventParams;
-          //  Instantiate(_model.ProjectileHitVfx, eParams.Position, Quaternion.identity);
+            // var eParams = obj as OnProjectileCollisionEventParams;
+            //  Instantiate(_model.ProjectileHitVfx, eParams.Position, Quaternion.identity);
         }
 
         #endregion

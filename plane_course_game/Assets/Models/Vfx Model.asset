@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _projectileHitVfx: {fileID: 4472293459428272497, guid: eb7f884e49b00bd42bedb6e87592189f,
     type: 3}
+  _targetHitVfx: {fileID: 4630208037382977843, guid: 4a5ae429ae6694e4a808a424c437c2a2,
+    type: 3}

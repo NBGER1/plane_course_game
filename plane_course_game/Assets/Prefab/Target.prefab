@@ -31,7 +31,6 @@ Transform:
   m_Children:
   - {fileID: 1917190973126147786}
   - {fileID: 1917190973854800340}
-  - {fileID: 1917190972693521170}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -53,6 +52,7 @@ MonoBehaviour:
   _onHitSFX: {fileID: 8300000, guid: 49c6313a1354e5f4e8b6c2437c8c1695, type: 3}
   _collider: {fileID: 2163080251433263453}
   _VFXObject: {fileID: 1917190973126147787}
+  _targetObject: {fileID: 1917190973854800341}
 --- !u!82 &6846152990529208568
 AudioSource:
   m_ObjectHideFlags: 0
@@ -173,12 +173,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1917190972693521171}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1917190972017308768}
-  m_RootOrder: 2
+  m_Father: {fileID: 1917190973126147786}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &1917190972693521173
 Light:
@@ -270,7 +270,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1917190972693521170}
   m_Father: {fileID: 1917190972017308768}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
