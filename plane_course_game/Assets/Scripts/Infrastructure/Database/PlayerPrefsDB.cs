@@ -1,6 +1,5 @@
 using System;
 using Gameplay.EventParamsDir;
-using GizmoSlots.Models;
 using Infrastructure.Events;
 using Infrastructure.Services;
 using UnityEngine;

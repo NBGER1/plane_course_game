@@ -11,14 +11,17 @@ namespace Infrastructure.Events
         //# Course Blocks
         OnCourseBlockFinish,
 
-        //# Collectibles
-        OnCollectibleCollect,
 
         //# Database
         OnPlayerDataLoaded,
-        OnPlayerBalanceChange,
         OnProjectileCollision,
         OnTargetCollision,
-        OnPlayerScoreChange
+
+        //Player Gameplay
+        OnPlayerScoreChange,
+        OnPlayerHealthChange,
+        OnPlayerAmmoChange,
+        OnPlayerReloadingStart,
+        OnPlayerReloadingEnd,
     }
 }

@@ -1,4 +1,4 @@
-using GizmoSlots.Models;
+using Infrastructure.Database;
 using Infrastructure.Events;
 
 namespace Gameplay.EventParamsDir

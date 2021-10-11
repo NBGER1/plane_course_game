@@ -4,7 +4,7 @@ using Infrastructure.Events;
 using Infrastructure.Services;
 using UnityEngine;
 
-namespace GizmoSlots.Models
+namespace Infrastructure.Database
 {
     [CreateAssetMenu(menuName = "Gameplay/Models/Player Model", fileName = "Player Model")]
     [Serializable]

@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Numerics;
+using Gameplay.EventParamsDir;
+using Infrastructure.Events;
 using Infrastructure.Factories;
 using Infrastructure.Services;
 using UnityEngine;
@@ -36,6 +38,7 @@ namespace Gameplay.PlayerDir
 
             SubscribeModelEvents();
             _model.AddAmmo(_model.MaxAmmo);
+            _model.AddHealth(_model.MaxHealth);
         }
 
         #endregion
@@ -45,17 +48,46 @@ namespace Gameplay.PlayerDir
         private void SubscribeModelEvents()
         {
             _model.OnZeroAmmo += OnZeroAmmo;
+            _model.OnAddAmmo += OnAmmoChange;
+            _model.OnRemoveAmmo += OnAmmoChange;
+
+            _model.OnZeroHealth += OnZeroHealth;
+            _model.OnAddHealth += OnHealthChange;
+            _model.OnRemoveHealth += OnRemoveHealth;
+        }
+
+        private void OnZeroHealth()
+        {
+            //TODO reset
+        }
+
+        private void OnRemoveHealth()
+        {
+            //TODO view damage 
+            OnHealthChange();
+        }
+
+        private void OnAmmoChange()
+        {
+            var eParams = new OnAmmoChangeEventParams(_model.Ammo);
+            GameplayServices.EventBus.Publish(EventTypes.OnPlayerAmmoChange, eParams);
+        }
+
+        private void OnHealthChange()
+        {
+            var eParams = new OnHealthChangeEventParams(_model.Ammo);
+            GameplayServices.EventBus.Publish(EventTypes.OnPlayerHealthChange, eParams);
         }
 
         private void OnZeroAmmo()
         {
-            Debug.Log($"Reloading");
+            GameplayServices.EventBus.Publish(EventTypes.OnPlayerReloadingStart, null);
             GameplayServices.CoroutineService
                 .WaitFor(_model.ReloadTime)
                 .OnEnd(() =>
                 {
                     _model.AddAmmo(_model.MaxAmmo);
-                    Debug.Log($"Gun is ready");
+                    GameplayServices.EventBus.Publish(EventTypes.OnPlayerReloadingEnd, null);
                 });
         }
 
@@ -67,7 +99,7 @@ namespace Gameplay.PlayerDir
             var constrainedXAxis = Mathf.Clamp(position.x, -_model.MaxSide, _model.MaxSide);
             position = new Vector3(constrainedXAxis, position.y, -6);
             _view.Transform.position = position;
-            HandleRotation(Vector3.forward,force);
+            HandleRotation(Vector3.forward, force);
         }
 
         public void MoveVertical(float force)
@@ -78,16 +110,17 @@ namespace Gameplay.PlayerDir
             var constrainedYAxis = Mathf.Clamp(position.y, _model.MinHeight, _model.MaxHeight);
             position = new Vector3(position.x, constrainedYAxis, -6);
             _view.Transform.position = position;
-      //      HandleRotation(Vector3.up,force);
+            //      HandleRotation(Vector3.up,force);
         }
 
-        private void HandleRotation(Vector3 direction,float force)
+        private void HandleRotation(Vector3 direction, float force)
         {
             Quaternion currentRotation = _view.Transform.rotation;
             Quaternion wantedRotation = Quaternion.Euler(direction * -16.5f * force);
             _view.Transform.rotation =
                 Quaternion.RotateTowards(currentRotation, wantedRotation, _model.RotationSpeed * Time.deltaTime);
         }
+
         public void Fire()
         {
             if (_model.Ammo == 0) return;
