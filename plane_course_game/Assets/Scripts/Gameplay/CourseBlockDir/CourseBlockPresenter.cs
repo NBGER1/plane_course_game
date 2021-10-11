@@ -70,7 +70,7 @@ namespace Gameplay.CourseBlockDir
             if (chance <= _model.TargetAppearanceChance)
             {
                 _targetPresenter.ViewTransform.SetParent(_view.Transform);
-                var randomPos = new Vector3(Random.Range(-10, 10), Random.Range(3, 13), 0);
+                var randomPos = new Vector3(Random.Range(-10, 10), Random.Range(5, 13), 0);
                 _targetPresenter.ViewTransform.position = _view.Transform.position + randomPos;
                 _targetPresenter.SetViewActive();
             }

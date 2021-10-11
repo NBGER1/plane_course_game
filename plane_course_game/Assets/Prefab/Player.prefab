@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 553845321102218309}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.5426402, w: 0.8399652}
   m_LocalPosition: {x: -0.009511948, y: -0.22986734, z: 2.886426}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5708744490832460981}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -65.727005}
 --- !u!33 &6710710819448896063
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -475,7 +475,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5652670734703213646}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7.25, z: -6}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5708744490832460981}
@@ -1413,6 +1413,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FlameThrowerLarge
+      objectReference: {fileID: 0}
+    - target: {fileID: 5974414283393292800, guid: 3cec0dc8c653a604aabf1b374ff4df37,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6664626309313948276, guid: 3cec0dc8c653a604aabf1b374ff4df37,
         type: 3}

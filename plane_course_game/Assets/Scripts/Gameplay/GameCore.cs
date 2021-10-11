@@ -90,6 +90,7 @@ namespace Gameplay
                 {
                     GameplayServices.CoroutineService.RunCoroutine(SetCourse());
                     var presenter = GameplayFactories.Instance.PlayerFactory.Create();
+                    presenter.SetViewPosition(new Vector3(0,8,-6));
                     _playerInput = new PlayerInput(presenter);
                     GameplayServices.UnityCore.RegisterUpdate(_playerInput as IUpdatable);
                 });

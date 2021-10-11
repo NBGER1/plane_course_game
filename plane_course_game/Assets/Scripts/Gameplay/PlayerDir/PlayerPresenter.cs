@@ -160,6 +160,12 @@ namespace Gameplay.PlayerDir
             projectileRight?.Fire(_view.RightFireOutput);
         }
 
+        public void SetViewPosition(Vector3 position)
+        {
+            _view.Transform.position = position;
+        }
         #endregion
+
+       
     }
 }
