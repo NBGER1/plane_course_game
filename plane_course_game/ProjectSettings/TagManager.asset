@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CourseBlock
   - Music
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - CourseBlock
   - Projectile
   - CourseTrigger
-  - 
+  - CourseTarget
   - 
   - 
   - 

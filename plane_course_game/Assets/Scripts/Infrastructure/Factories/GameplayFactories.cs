@@ -12,6 +12,8 @@ namespace Infrastructure.Factories
         [SerializeField] private CourseBlockFactoryBase _mesaBlockFactory;
         [SerializeField] private PlayerFactory _playerFactory;
         [SerializeField] private ProjectileFactoryBase _bulletProjectileFactory;
+        [SerializeField] private CourseTargetFactoryBase _courseTargetBasicFactory;
+
         #endregion
 
         #region Methods
@@ -28,6 +30,7 @@ namespace Infrastructure.Factories
         public CourseBlockFactoryBase MesaBlockFactory => _mesaBlockFactory;
         public PlayerFactory PlayerFactory => _playerFactory;
         public ProjectileFactoryBase BulletProjectileFactory => _bulletProjectileFactory;
+        public CourseTargetFactoryBase CourseTargetBasicFactory => _courseTargetBasicFactory;
 
         #endregion
     }

@@ -1,19 +1,18 @@
-using System;
 using System.Collections.Generic;
-using Gameplay.CourseBlockDir;
+using Gameplay.CourseTargetDir;
+using Gameplay.ProjectilesDir;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Gameplay.FactoriesDir
 {
-    public abstract class CourseBlockFactoryBase : MonoBehaviour
+    public abstract class CourseTargetFactoryBase : MonoBehaviour
     {
         #region Fields
 
-        [SerializeField] protected int _poolSize;
+        [SerializeField] protected float _poolSize;
         [SerializeField] protected Object _view;
-        [SerializeField] protected CourseBlockModel _model;
-        protected CourseBlockPresenter[] _presenters;
+        [SerializeField] protected CourseTargetModel _model;
+        protected CourseTargetPresenter[] _presenters;
 
         #endregion
 
@@ -21,13 +20,13 @@ namespace Gameplay.FactoriesDir
 
         protected virtual void Initialize()
         {
-            var pool = new GameObject("CourseBlocks");
-            List<CourseBlockPresenter> presenterList = new List<CourseBlockPresenter>();
+            var pool = new GameObject("TargetsPool");
+            List<CourseTargetPresenter> presenterList = new List<CourseTargetPresenter>();
             for (var i = 0; i < _poolSize; i++)
             {
-                var view = Instantiate(_view, pool.transform, true) as GameObject;
+                var view = Instantiate(_view, pool.transform) as GameObject;
                 var model = Instantiate(_model);
-                var presenter = new CourseBlockPresenter(model, view.GetComponent<CourseBlockView>());
+                var presenter = new CourseTargetPresenter(model, view.GetComponent<CourseTargetView>());
                 presenterList.Add(presenter);
                 view.SetActive(false);
             }
@@ -40,7 +39,7 @@ namespace Gameplay.FactoriesDir
             Initialize();
         }
 
-        public virtual CourseBlockPresenter Create()
+        public virtual CourseTargetPresenter Create()
         {
             foreach (var presenter in _presenters)
             {
@@ -49,12 +48,6 @@ namespace Gameplay.FactoriesDir
 
             return null;
         }
-
-        #endregion
-
-        #region Properties
-
-        public int PoolSize => _poolSize;
 
         #endregion
     }

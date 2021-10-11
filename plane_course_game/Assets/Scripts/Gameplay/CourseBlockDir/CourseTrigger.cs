@@ -5,11 +5,6 @@ namespace Gameplay.CourseBlockDir
 {
     public class CourseTrigger : MonoBehaviour
     {
-        #region Editor
-
-        [SerializeField] private CourseBlockView _view;
-
-        #endregion
 
         #region Events
 

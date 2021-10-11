@@ -22,6 +22,7 @@ namespace Gameplay
         private Transform _lastBlockTransform;
         private CourseBlockPresenter[] _presenters;
         private bool _initialized = false;
+
         #endregion
 
         #region Methods
@@ -47,7 +48,7 @@ namespace Gameplay
             _lastBlockTransform = presenter.ViewTransform;
         }
 
-        private void SetCourse()
+        private IEnumerator SetCourse()
         {
             var pool = GameplayFactories.Instance.MesaBlockFactory.PoolSize;
             Queue<CourseBlockPresenter> _queue = new Queue<CourseBlockPresenter>();
@@ -58,13 +59,18 @@ namespace Gameplay
                 presenter.SetPosition(Vector3.forward * (i * _blockSize));
                 presenter.MoveView(_gameSpeed);
                 _queue.Enqueue(presenter);
+
+                var target = GameplayFactories.Instance.CourseTargetBasicFactory.Create();
+                target.SetViewActive();
+                presenter.SetTarget(target);
             }
 
+            yield return null;
             _presenters = _queue.ToArray();
-            //  _lastBlockPosition = Vector3.forward * (pool - 1) * _blockSize;
             _lastBlockTransform = _presenters[_presenters.Length - 1].ViewTransform;
             _initialized = true;
         }
+
 
         private void Start()
         {
@@ -74,12 +80,13 @@ namespace Gameplay
                 .OnStart(() => { })
                 .OnEnd(() =>
                 {
-                    SetCourse();
+                    GameplayServices.CoroutineService.RunCoroutine(SetCourse());
                     var presenter = GameplayFactories.Instance.PlayerFactory.Create();
                     _playerInput = new PlayerInput(presenter);
                     GameplayServices.UnityCore.RegisterUpdate(_playerInput as IUpdatable);
                 });
         }
+
         #endregion
     }
 }

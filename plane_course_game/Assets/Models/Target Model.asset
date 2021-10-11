@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25a153dfa81b40e4a0b75ed59b0dd048, type: 3}
-  m_Name: Course Block Model
+  m_Script: {fileID: 11500000, guid: 4b8a998cf5224a1294589bdd83147f40, type: 3}
+  m_Name: Target Model
   m_EditorClassIdentifier: 
-  _targetAppearanceChance: 0.65
+  _score: 50

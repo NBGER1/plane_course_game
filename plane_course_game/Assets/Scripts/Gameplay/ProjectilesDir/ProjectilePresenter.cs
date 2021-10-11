@@ -40,9 +40,7 @@ namespace Gameplay.ProjectilesDir
         
         private void OnTriggerEnterEvent(Collider other)
         {
-            other.gameObject.GetComponent<IDamageable>()?.TakeDamage(_model.Damage);
             var position = _view.Transform.position;
-            Debug.Log("Collided with " + other.transform.name);
             var eParams = new OnProjectileCollisionEventParams(position);
             GameplayServices.EventBus.Publish(EventTypes.OnProjectileCollision,eParams);
             SetViewInactive();
