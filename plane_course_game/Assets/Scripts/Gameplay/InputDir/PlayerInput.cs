@@ -22,6 +22,7 @@ namespace Gameplay.InputDir
 
         private void OnPlayerDisabled()
         {
+            _presenter.OnPlayerDisabled -= OnPlayerDisabled;
             _presenter = null;
         }
 

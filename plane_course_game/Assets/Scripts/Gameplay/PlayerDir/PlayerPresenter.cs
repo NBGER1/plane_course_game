@@ -49,6 +49,7 @@ namespace Gameplay.PlayerDir
             SubscribeModelEvents();
             _model.AddAmmo(_model.MaxAmmo);
             _model.AddHealth(_model.MaxHealth);
+            MakePlayerInvulnerable();
         }
 
         #endregion
@@ -71,6 +72,22 @@ namespace Gameplay.PlayerDir
             _view.OnCollisionEvent += OnCollisionEvent;
         }
 
+        private void UnsubscribeModelEvents()
+        {
+            _model.OnZeroAmmo -= OnZeroAmmo;
+            _model.OnAddAmmo -= OnAmmoChange;
+            _model.OnRemoveAmmo -= OnAmmoChange;
+
+            _model.OnZeroHealth -= OnZeroHealth;
+            _model.OnAddHealth -= OnHealthChange;
+            _model.OnRemoveHealth -= OnRemoveHealth;
+        }
+
+        private void UnsubscribeViewEvents()
+        {
+            _view.OnCollisionEvent -= OnCollisionEvent;
+        }
+
         private void OnCollisionEvent(Collider obj)
         {
             _model.RemoveHealth(_model.OnCollisionDamage);
@@ -78,8 +95,11 @@ namespace Gameplay.PlayerDir
 
         private void OnZeroHealth()
         {
+            UnsubscribeViewEvents();
+            UnsubscribeModelEvents();
             OnPlayerDisabled?.Invoke();
             _view.Animator.SetTrigger(_view.DeathAnimation);
+            GameplayServices.EventBus.Publish(EventTypes.OnGameOver, null);
         }
 
         private void OnRemoveHealth()
@@ -166,6 +186,14 @@ namespace Gameplay.PlayerDir
             yield return null;
             var projectileRight = GameplayFactories.Instance.BulletProjectileFactory.Create();
             projectileRight?.Fire(_view.RightFireOutput);
+        }
+
+        public void MakePlayerInvulnerable()
+        {
+            GameplayServices.CoroutineService
+                .WaitFor(_model.InvulnerabilityDuration)
+                .OnStart(() => { _playerInvulnerable = true; })
+                .OnEnd(() => { _playerInvulnerable = false; });
         }
 
         public void SetViewPosition(Vector3 position)

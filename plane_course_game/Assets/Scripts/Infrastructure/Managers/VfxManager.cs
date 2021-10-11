@@ -55,6 +55,12 @@ namespace Infrastructure.Managers
             //  Instantiate(_model.ProjectileHitVfx, eParams.Position, Quaternion.identity);
         }
 
+        private void OnDestroy()
+        {
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnProjectileCollision, OnProjectileCollision);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnTargetCollision, OnTargetCollision);
+        }
+
         #endregion
     }
 }

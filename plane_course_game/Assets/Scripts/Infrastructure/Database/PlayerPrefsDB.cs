@@ -36,7 +36,7 @@ namespace Infrastructure.Database
             JsonUtility.FromJsonOverwrite(dataString, _playerModel);
 
             var eParams = new OnPlayerDataLoadedEventParams(_playerModel);
-            Debug.Log($"Loaded coins {eParams.PlayerModel.Score}");
+            Debug.Log($"Loaded score {eParams.PlayerModel.Score}");
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerDataLoaded, eParams);
         }
 

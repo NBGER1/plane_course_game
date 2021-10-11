@@ -1,4 +1,3 @@
-using System;
 using Infrastructure.Abstracts;
 using UnityEngine;
 
@@ -21,8 +20,6 @@ namespace Infrastructure
 
         private void Awake()
         {
-            var musicObj = GameObject.FindWithTag("Music");
-            if (musicObj.Equals(this)) Destroy(gameObject);
             DontDestroyOnLoad(gameObject);
             StartMusic();
         }

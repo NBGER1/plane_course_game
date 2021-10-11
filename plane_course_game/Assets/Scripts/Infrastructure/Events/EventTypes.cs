@@ -23,5 +23,7 @@ namespace Infrastructure.Events
         OnPlayerAmmoChange,
         OnPlayerReloadingStart,
         OnPlayerReloadingEnd,
+        OnTutorialEnd,
+        OnGameOver,
     }
 }

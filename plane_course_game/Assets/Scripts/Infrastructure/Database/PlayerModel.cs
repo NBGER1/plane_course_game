@@ -11,12 +11,13 @@ namespace Infrastructure.Database
     public class PlayerModel : ScriptableObject
     {
         #region Events
-        
+
         #endregion
 
         #region Editor
 
         [SerializeField] private int _score;
+        [SerializeField] private int _bestScore;
 
         #endregion
 
@@ -50,6 +51,11 @@ namespace Infrastructure.Database
             _score += score;
             var eParams = new OnPlayerScoreChangeEventParams(oldScore, _score);
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerScoreChange, eParams);
+            if (_bestScore < _score)
+            {
+                _bestScore = _score;
+            }
+
             Infrastructure.Database.PlayerPrefsDB.SaveData();
         }
 
@@ -66,7 +72,8 @@ namespace Infrastructure.Database
 
         #region Properties
 
-        public int Score=> _score;
+        public int Score => _score;
+        public int BestScore => _bestScore;
 
         #endregion
     }

@@ -20,6 +20,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/AnimationToPNG.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Infrastructure/MainEntry.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1zJRUqZmfE8fckUuoVgYNf2eEmh" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -66,7 +67,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1633864224301</updated>
-      <workItem from="1633864228250" duration="47528000" />
+      <workItem from="1633864228250" duration="51980000" />
     </task>
     <servers />
   </component>

@@ -4,7 +4,6 @@ namespace Gameplay.InputDir
     {
         #region Methods
 
-        //void SetPresenter(CharacterPresenter presenter);
         void MoveHorizontal(float force);
         void MoveVertical(float force);
         void Fire();

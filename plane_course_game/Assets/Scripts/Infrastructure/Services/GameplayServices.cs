@@ -5,6 +5,7 @@ using Infrastructure.Database;
 using Infrastructure.Managers;
 using Infrastructure.Services.Coroutines;
 using UnityEngine;
+using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace Infrastructure.Services
 {
@@ -30,16 +31,31 @@ namespace Infrastructure.Services
 
             var coreGo = new GameObject("UnityCore");
             _unityCore = coreGo.AddComponent<UnityCore>();
-            UIManager.Instance.Initialize();
-            _coroutineService.WaitFor(0.1f)
-                .OnEnd(() =>
-                {
-                    PlayerPrefsDB.LoadData();
-                    PlayerPrefsDB.PlayerModel.WithdrawScore(PlayerPrefsDB.PlayerModel.Score);
-                });
-            VfxManager.Instance.Initialize();
-            var gcgo = new GameObject("GameCore");
-            _gameCore = gcgo.AddComponent<GameCore>();
+
+
+            if (SceneManager.GetActiveScene().name.Equals("Main"))
+            {
+             
+                _coroutineService.WaitFor(0.1f)
+                    .OnEnd(() =>
+                    {
+                        PlayerPrefsDB.LoadData();
+                        PlayerPrefsDB.PlayerModel.WithdrawScore(PlayerPrefsDB.PlayerModel.Score);
+                    });
+            }
+
+            if (SceneManager.GetActiveScene().name.Equals("Game"))
+            {
+                VfxManager.Instance.Initialize();
+                UIManager.Instance.Initialize();
+                var gcgo = new GameObject("GameCore");
+                _gameCore = gcgo.AddComponent<GameCore>();
+            }
+
+            if (SceneManager.GetActiveScene().name.Equals("Intro"))
+            {
+                SceneManager.LoadScene("Main");
+            }
         }
 
         #endregion

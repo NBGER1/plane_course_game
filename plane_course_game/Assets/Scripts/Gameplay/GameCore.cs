@@ -32,6 +32,15 @@ namespace Gameplay
         {
             GameplayServices.EventBus.Subscribe(EventTypes.OnCourseBlockFinish, OnCourseBlockFinish);
             GameplayServices.EventBus.Subscribe(EventTypes.OnTargetCollision, OnTargetCollision);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnTutorialEnd, OnTutorialEnd);
+        }
+
+        private void OnTutorialEnd(EventParams obj)
+        {
+            var presenter = GameplayFactories.Instance.PlayerFactory.Create();
+            presenter.SetViewPosition(new Vector3(0, 8, -6));
+            _playerInput = new PlayerInput(presenter);
+            GameplayServices.UnityCore.RegisterUpdate(_playerInput as IUpdatable);
         }
 
         private void OnTargetCollision(EventParams obj)
@@ -86,14 +95,19 @@ namespace Gameplay
             GameplayServices.CoroutineService
                 .WaitFor(1f)
                 .OnStart(() => { })
-                .OnEnd(() =>
-                {
-                    GameplayServices.CoroutineService.RunCoroutine(SetCourse());
-                    var presenter = GameplayFactories.Instance.PlayerFactory.Create();
-                    presenter.SetViewPosition(new Vector3(0,8,-6));
-                    _playerInput = new PlayerInput(presenter);
-                    GameplayServices.UnityCore.RegisterUpdate(_playerInput as IUpdatable);
-                });
+                .OnEnd(() => { GameplayServices.CoroutineService.RunCoroutine(SetCourse()); });
+        }
+
+        private void OnDestroy()
+        {
+            UnsubscribeEvents();
+        }
+
+        private void UnsubscribeEvents()
+        {
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnCourseBlockFinish, OnCourseBlockFinish);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnTargetCollision, OnTargetCollision);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnTutorialEnd, OnTutorialEnd);
         }
 
         #endregion
