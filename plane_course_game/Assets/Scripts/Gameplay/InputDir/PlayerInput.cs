@@ -17,28 +17,27 @@ namespace Gameplay.InputDir
         public PlayerInput(PlayerPresenter presenter)
         {
             _presenter = presenter;
-            Debug.Log("Presenter set");
-            // _presenter. += OnViewDestroyed;
+            _presenter.OnPlayerDisabled += OnPlayerDisabled;
         }
 
-        private void OnViewDestroyed()
+        private void OnPlayerDisabled()
         {
             _presenter = null;
         }
 
         public void MoveHorizontal(float force)
         {
-            _presenter.MoveHorizontal(force);
+            _presenter?.MoveHorizontal(force);
         }
 
         public void MoveVertical(float force)
         {
-            _presenter.MoveVertical(force);
+            _presenter?.MoveVertical(force);
         }
 
         public void Fire()
         {
-            _presenter.Fire();
+            _presenter?.Fire();
         }
 
         #endregion

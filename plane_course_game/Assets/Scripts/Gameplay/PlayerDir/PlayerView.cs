@@ -20,6 +20,8 @@ namespace Gameplay.PlayerDir
         #region Fields
 
         private int _takeDamageAnimation = Animator.StringToHash("TakeDamage");
+        private int _deathAnimation = Animator.StringToHash("Death");
+
 
         #endregion
 
@@ -45,6 +47,7 @@ namespace Gameplay.PlayerDir
 
         #region Properties
 
+        public int DeathAnimation => _deathAnimation;
         public int TakeDamageAnimation => _takeDamageAnimation;
         public AudioSource AudioSource => _audioSource;
         public AudioClip FireSFX => _FireSFX;

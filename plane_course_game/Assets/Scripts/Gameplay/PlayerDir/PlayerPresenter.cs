@@ -28,6 +28,13 @@ namespace Gameplay.PlayerDir
         private float _maxRight = 6;
 
         private bool _playerInvulnerable;
+        private bool _isActive = false;
+
+        #endregion
+
+        #region Events
+
+        public event Action OnPlayerDisabled;
 
         #endregion
 
@@ -71,7 +78,8 @@ namespace Gameplay.PlayerDir
 
         private void OnZeroHealth()
         {
-            //TODO reset
+            OnPlayerDisabled?.Invoke();
+            _view.Animator.SetTrigger(_view.DeathAnimation);
         }
 
         private void OnRemoveHealth()
@@ -164,8 +172,13 @@ namespace Gameplay.PlayerDir
         {
             _view.Transform.position = position;
         }
+
         #endregion
 
-       
+        #region Properties
+
+        public bool IsActive => _isActive;
+
+        #endregion
     }
 }
