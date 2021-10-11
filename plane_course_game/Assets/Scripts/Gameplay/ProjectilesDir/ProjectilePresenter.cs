@@ -12,7 +12,8 @@ namespace Gameplay.ProjectilesDir
         private ProjectileModel _model;
         private ProjectileView _view;
 
-        private Vector3 _origin;
+        private Transform _origin;
+        
 
         #endregion
 
@@ -50,11 +51,12 @@ namespace Gameplay.ProjectilesDir
             _view.GameObject.SetActive(false);
         }
 
-        public void Fire(Vector3 position)
+        public void Fire(Transform transform)
         {
-            _origin = position;
+            _origin = transform;
             SetViewActive();
-            _view.Transform.position = position;
+            _view.Transform.position = transform.position;
+            _view.Transform.forward = transform.forward;
             MoveView();
         }
 
@@ -65,10 +67,10 @@ namespace Gameplay.ProjectilesDir
 
         private IEnumerator Move()
         {
-            while (Vector3.Distance(_origin, _view.Transform.position) < _model.MaxDistance)
+            while (Vector3.Distance(_origin.position, _view.Transform.position) < _model.MaxDistance)
             {
                 yield return null;
-                _view.Transform.position += Vector3.forward * Time.deltaTime * _model.Speed;
+                _view.Transform.position += _view.Transform.forward * Time.deltaTime * _model.Speed;
             }
 
             SetViewInactive();

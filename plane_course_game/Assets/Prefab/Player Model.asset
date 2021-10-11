@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83166edadd054ef8b4a51fdbbb303b0a, type: 3}
   m_Name: Player Model
   m_EditorClassIdentifier: 
+  _reloadTime: 1
+  _maxHealth: 0
   _speed: 10
-  _rotationSpeed: 100
-  _maxAmmo: 0
+  _rotationSpeed: 25
+  _maxAmmo: 50
   _shotInterval: 0.25
+  _maxHeight: 12
+  _minHeight: 6
+  _maxSide: 9
