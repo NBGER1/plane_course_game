@@ -12,27 +12,29 @@ namespace Gameplay.CourseBlockDir
         [SerializeField] private GameObject _gameObject;
         [SerializeField] private Transform[] _rotatingObjects;
         [SerializeField] private Transform[] _rotatingSideways;
+        [SerializeField] private CourseTrigger _courseTrigger;
+
         #endregion
+
         #region Events
 
         public event Action OnFinish;
-        
+
         #endregion
-        
+
         #region Methods
 
         private void Start()
         {
             SetRandomRotation();
+            _courseTrigger.OnFinishCollision += OnFinishCollision;
         }
 
-        public void OnTriggerExit(Collider other)
+        private void OnFinishCollision()
         {
-            if (other.CompareTag("Finish"))
-            {
-                OnFinish?.Invoke();
-            }
+            OnFinish?.Invoke();
         }
+
 
         public void SetRandomRotation()
         {
@@ -40,12 +42,13 @@ namespace Gameplay.CourseBlockDir
             {
                 obj.Rotate(new Vector3(Random.Range(0, 120f), Random.Range(0f, 120f), Random.Range(0f, 120f)));
             }
+
             foreach (var obj in _rotatingSideways)
             {
                 obj.Rotate(new Vector3(0f, 0f, Random.Range(0f, 120f)));
             }
-          
         }
+
         #endregion
 
         #region Properties

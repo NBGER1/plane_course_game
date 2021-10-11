@@ -38,9 +38,14 @@ namespace Infrastructure.Managers
 
         private void SubscribeEvents()
         {
+            GameplayServices.EventBus.Subscribe(EventTypes.OnProjectileCollision, OnProjectileCollision);
         }
 
- 
+        private void OnProjectileCollision(EventParams obj)
+        {
+           // var eParams = obj as OnProjectileCollisionEventParams;
+          //  Instantiate(_model.ProjectileHitVfx, eParams.Position, Quaternion.identity);
+        }
 
         #endregion
     }

@@ -9,15 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83166edadd054ef8b4a51fdbbb303b0a, type: 3}
-  m_Name: Player Model
+  m_Script: {fileID: 11500000, guid: 217a08414ee34a06b0111c7b2c3efc2b, type: 3}
+  m_Name: Vfx Model
   m_EditorClassIdentifier: 
-  _reloadTime: 1
-  _maxHealth: 0
-  _speed: 15
-  _rotationSpeed: 25
-  _maxAmmo: 50
-  _shotInterval: 0.25
-  _maxHeight: 12
-  _minHeight: 5
-  _maxSide: 12
+  _projectileHitVfx: {fileID: 4472293459428272497, guid: eb7f884e49b00bd42bedb6e87592189f,
+    type: 3}

@@ -30,9 +30,9 @@ namespace Infrastructure.Services
 
             var coreGo = new GameObject("UnityCore");
             _unityCore = coreGo.AddComponent<UnityCore>();
-       //     _coroutineService.WaitFor(0.1f)
-       //         .OnEnd(() => { PlayerPrefsDB.LoadData(); });
-      //      VfxManager.Instance.Initialize();
+           //_coroutineService.WaitFor(0.1f)
+          //     .OnEnd(() => { PlayerPrefsDB.LoadData(); });
+          VfxManager.Instance.Initialize();
 
             var gcgo = new GameObject("GameCore");
             _gameCore = gcgo.AddComponent<GameCore>();

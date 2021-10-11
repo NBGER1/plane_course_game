@@ -19,9 +19,10 @@ namespace Gameplay.ProjectilesDir
         #endregion
         #region Methods
 
+
         private void OnTriggerEnter(Collider other)
         {
-            OnTriggerEnterEvent?.Invoke(other);
+           OnTriggerEnterEvent?.Invoke(other);
         }
 
         #endregion

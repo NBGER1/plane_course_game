@@ -78,7 +78,7 @@ namespace Gameplay.PlayerDir
             var constrainedYAxis = Mathf.Clamp(position.y, _model.MinHeight, _model.MaxHeight);
             position = new Vector3(position.x, constrainedYAxis, -6);
             _view.Transform.position = position;
-            HandleRotation(Vector3.up,force);
+      //      HandleRotation(Vector3.up,force);
         }
 
         private void HandleRotation(Vector3 direction,float force)

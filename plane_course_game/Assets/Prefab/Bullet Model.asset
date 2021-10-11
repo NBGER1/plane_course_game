@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Bullet Model
   m_EditorClassIdentifier: 
   _damage: 25
-  _speed: 25
-  _maxDistance: 25
+  _speed: 500
+  _maxDistance: 500

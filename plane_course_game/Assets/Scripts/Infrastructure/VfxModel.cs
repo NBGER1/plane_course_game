@@ -7,15 +7,13 @@ namespace Gameplay
     {
         #region Editor
 
-        [SerializeField] private  Object _barrelDestroyedVfx;
-        [SerializeField] private  Object _goldCollectibleVfx;
+        [SerializeField] private  Object _projectileHitVfx;
 
         #endregion
 
         #region Properties
 
-        public Object GoldCollectibleVfx => _goldCollectibleVfx;
-        public Object BarrelDestroyedVfx => _barrelDestroyedVfx;
+        public Object ProjectileHitVfx => _projectileHitVfx;
 
         #endregion
     }

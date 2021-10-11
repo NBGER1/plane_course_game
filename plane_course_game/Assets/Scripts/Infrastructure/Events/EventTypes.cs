@@ -15,6 +15,7 @@ namespace Infrastructure.Events
         OnCollectibleCollect,
         //# Database
         OnPlayerDataLoaded,
-        OnPlayerBalanceChange
+        OnPlayerBalanceChange,
+        OnProjectileCollision
     }
 }
