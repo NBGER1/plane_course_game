@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8a998cf5224a1294589bdd83147f40, type: 3}
   m_Name: Target Model
   m_EditorClassIdentifier: 
-  _score: 50
+  _score: 1

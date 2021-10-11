@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 838233991135864590}
   - component: {fileID: 201689298338181754}
   m_Layer: 0
-  m_Name: GoldCollectibleVfx
+  m_Name: TargetCollisionVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

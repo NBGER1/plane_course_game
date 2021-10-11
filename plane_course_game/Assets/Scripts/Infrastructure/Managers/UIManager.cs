@@ -1,3 +1,4 @@
+using Gameplay.EventParamsDir;
 using Infrastructure.Abstracts;
 using Infrastructure.Events;
 using Infrastructure.Services;
@@ -11,7 +12,7 @@ namespace Infrastructure.Managers
     {
         #region Editor
 
-        [SerializeField] private Text _playerGoldText;
+        [SerializeField] private TextMeshProUGUI _playerScoreText;
         #endregion
 
         #region Methods
@@ -24,12 +25,13 @@ namespace Infrastructure.Managers
 
         public void Initialize()
         {
-            GameplayServices.EventBus.Subscribe(EventTypes.OnCollectibleCollect,OnCollectibleCollect);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerScoreChange,OnCollectibleCollect);
         }
 
         private void OnCollectibleCollect(EventParams obj)
         {
-            throw new System.NotImplementedException();
+            var eParams = obj as OnPlayerScoreChangeEventParams;
+            _playerScoreText.text = eParams.Score.ToString();
         }
 
         private void OnDestroy()

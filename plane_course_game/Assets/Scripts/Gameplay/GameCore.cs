@@ -5,6 +5,7 @@ using Gameplay.Core;
 using Gameplay.CourseBlockDir;
 using Gameplay.EventParamsDir;
 using Gameplay.InputDir;
+using Infrastructure.Database;
 using Infrastructure.Events;
 using Infrastructure.Factories;
 using Infrastructure.Services;
@@ -30,6 +31,13 @@ namespace Gameplay
         private void SubscribeEvents()
         {
             GameplayServices.EventBus.Subscribe(EventTypes.OnCourseBlockFinish, OnCourseBlockFinish);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnTargetCollision, OnTargetCollision);
+        }
+
+        private void OnTargetCollision(EventParams obj)
+        {
+            var eParams = obj as OnTargetCollisionEventParams;
+            PlayerPrefsDB.PlayerModel.AddScore(eParams.Score);
         }
 
         private void OnCourseBlockFinish(EventParams eventParams)

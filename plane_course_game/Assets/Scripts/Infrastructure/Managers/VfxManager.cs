@@ -45,7 +45,7 @@ namespace Infrastructure.Managers
         private void OnTargetCollision(EventParams obj)
         {
             var eParams = obj as OnTargetCollisionEventParams;
-            var fx = (GameObject) Instantiate(_model.ProjectileHitVfx, eParams.Position, Quaternion.identity);
+            var fx = (GameObject) Instantiate(_model.TargetHitVfx, eParams.Position, Quaternion.identity);
             fx.transform.LookAt(_cameraTransform);
         }
 

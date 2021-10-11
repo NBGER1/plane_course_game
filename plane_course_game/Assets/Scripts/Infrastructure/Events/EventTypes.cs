@@ -19,5 +19,6 @@ namespace Infrastructure.Events
         OnPlayerBalanceChange,
         OnProjectileCollision,
         OnTargetCollision,
+        OnPlayerScoreChange
     }
 }

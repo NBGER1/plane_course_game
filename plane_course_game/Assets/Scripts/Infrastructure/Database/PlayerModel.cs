@@ -11,12 +11,12 @@ namespace GizmoSlots.Models
     public class PlayerModel : ScriptableObject
     {
         #region Events
-
+        
         #endregion
 
         #region Editor
 
-        [SerializeField] private int _coinsBalance;
+        [SerializeField] private int _score;
 
         #endregion
 
@@ -24,41 +24,41 @@ namespace GizmoSlots.Models
 
         public void Set(PlayerModel model)
         {
-            _coinsBalance = model.CoinsBalance;
+            _score = model.Score;
         }
 
         public PlayerModel()
         {
-            _coinsBalance = 0;
+            _score = 0;
         }
 
-        public void EditorAddCoins(int coinsToAdd)
+        public void EditorAddScore(int score)
         {
-            _coinsBalance += coinsToAdd;
+            _score += score;
             Infrastructure.Database.PlayerPrefsDB.EditorSaveData(this);
         }
 
-        public void EditorWithdrawCoins(int coinsToWithdraw)
+        public void EditorWithdrawScore(int score)
         {
-            _coinsBalance = Mathf.Max(0, _coinsBalance - coinsToWithdraw);
+            _score = Mathf.Max(0, _score - score);
             Infrastructure.Database.PlayerPrefsDB.EditorSaveData(this);
         }
 
-        public void AddCoins(int coinsToAdd)
+        public void AddScore(int score)
         {
-            var oldBalance = _coinsBalance;
-            _coinsBalance += coinsToAdd;
-            var eParams = new OnPlayerBalanceChangeEventParams(oldBalance, _coinsBalance);
-            GameplayServices.EventBus.Publish(EventTypes.OnPlayerBalanceChange, eParams);
+            var oldScore = _score;
+            _score += score;
+            var eParams = new OnPlayerScoreChangeEventParams(oldScore, _score);
+            GameplayServices.EventBus.Publish(EventTypes.OnPlayerScoreChange, eParams);
             Infrastructure.Database.PlayerPrefsDB.SaveData();
         }
 
-        public void WithdrawCoins(int coinsToWithdraw)
+        public void WithdrawScore(int score)
         {
-            var oldBalance = _coinsBalance;
-            _coinsBalance = Mathf.Max(0, _coinsBalance - coinsToWithdraw);
-            var eParams = new OnPlayerBalanceChangeEventParams(oldBalance, _coinsBalance);
-            GameplayServices.EventBus.Publish(EventTypes.OnPlayerBalanceChange, eParams);
+            var oldScore = _score;
+            _score = Mathf.Max(0, _score - score);
+            var eParams = new OnPlayerScoreChangeEventParams(oldScore, _score);
+            GameplayServices.EventBus.Publish(EventTypes.OnPlayerScoreChange, eParams);
             Infrastructure.Database.PlayerPrefsDB.SaveData();
         }
 
@@ -66,7 +66,7 @@ namespace GizmoSlots.Models
 
         #region Properties
 
-        public int CoinsBalance => _coinsBalance;
+        public int Score=> _score;
 
         #endregion
     }
