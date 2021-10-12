@@ -36,6 +36,11 @@ namespace Gameplay.PopupsDir
             _bestScoreText.text = PlayerPrefsDB.PlayerModel.BestScore.ToString();
         }
 
+        private void OnEnable()
+        {
+            _bestScoreText.text = PlayerPrefsDB.PlayerModel.BestScore.ToString();
+        }
+
         public void Play()
         {
             SceneManager.MoveToGameScene();

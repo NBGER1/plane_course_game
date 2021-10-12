@@ -102,7 +102,7 @@ namespace Gameplay.PlayerDir
             GameplayServices.EventBus.Publish(EventTypes.OnGameOver, null);
             GameplayServices.CoroutineService
                 .WaitFor(2f)
-                .OnEnd(() => { Object.Destroy(_view); });
+                .OnEnd(() => { Object.Destroy(_view.gameObject); });
         }
 
         private void OnRemoveHealth()
