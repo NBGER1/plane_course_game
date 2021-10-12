@@ -1,6 +1,8 @@
 using System;
 using Infrastructure.Database;
+using Infrastructure.Events;
 using Infrastructure.Managers;
+using Infrastructure.Services;
 using TMPro;
 using UnityEngine;
 
@@ -24,6 +26,12 @@ namespace Gameplay.PopupsDir
         //TODO temp location
 
         private void Start()
+        {
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerDataLoaded,OnPlayerDataLoaded);
+           
+        }
+
+        private void OnPlayerDataLoaded(EventParams obj)
         {
             _bestScoreText.text = PlayerPrefsDB.PlayerModel.BestScore.ToString();
         }

@@ -10028,6 +10028,7 @@ MonoBehaviour:
   _rightFireOutput: {fileID: 2241252430943150619}
   _audioSource: {fileID: 4457172918900237219}
   _FireSFX: {fileID: 8300000, guid: 19a9f6121ff8a6c45b0982187652c222, type: 3}
+  _takeDamageSFX: {fileID: 8300000, guid: a90e99ccefd0b4b4fa0ec0537fd6de1a, type: 3}
   _collider: {fileID: 4504238811680823214}
 --- !u!82 &4457172918900237219
 AudioSource:

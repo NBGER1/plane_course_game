@@ -49,7 +49,6 @@ namespace Gameplay.PlayerDir
             SubscribeModelEvents();
             _model.AddAmmo(_model.MaxAmmo);
             _model.AddHealth(_model.MaxHealth);
-            MakePlayerInvulnerable();
         }
 
         #endregion
@@ -109,6 +108,7 @@ namespace Gameplay.PlayerDir
                 .WaitFor(_model.InvulnerabilityDuration)
                 .OnStart(() =>
                 {
+                    _view.AudioSource.PlayOneShot(_view.TakeDamageSFX);
                     _playerInvulnerable = true;
                     _view.Animator.SetTrigger(_view.TakeDamageAnimation);
                     OnHealthChange();
@@ -188,12 +188,25 @@ namespace Gameplay.PlayerDir
             projectileRight?.Fire(_view.RightFireOutput);
         }
 
-        public void MakePlayerInvulnerable()
+
+        public void ShowCinematicIntro()
         {
-            GameplayServices.CoroutineService
-                .WaitFor(_model.InvulnerabilityDuration)
-                .OnStart(() => { _playerInvulnerable = true; })
-                .OnEnd(() => { _playerInvulnerable = false; });
+            _playerInvulnerable = true;
+            _view.Transform.position = new Vector3(0, 8,-60);
+            GameplayServices.CoroutineService.RunCoroutine(MoveViewCinematic());
+
+        }
+
+       IEnumerator MoveViewCinematic()
+       {
+           var destination = new Vector3(0, 8, -6);
+           var speed = 35f;
+           while (_view.Transform.position.z<destination.z)
+           {
+               yield return null;
+               _view.Transform.position+= Vector3.forward * Time.deltaTime * speed;
+           }
+           _playerInvulnerable = false;
         }
 
         public void SetViewPosition(Vector3 position)

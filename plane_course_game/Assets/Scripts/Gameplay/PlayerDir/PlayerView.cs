@@ -13,6 +13,8 @@ namespace Gameplay.PlayerDir
         [SerializeField] private Transform _rightFireOutput;
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private AudioClip _FireSFX;
+        [SerializeField] private AudioClip _takeDamageSFX;
+
         [SerializeField] private PlayerCollider _collider;
 
         #endregion
@@ -21,7 +23,7 @@ namespace Gameplay.PlayerDir
 
         private int _takeDamageAnimation = Animator.StringToHash("TakeDamage");
         private int _deathAnimation = Animator.StringToHash("Death");
-
+        private int _introAnimation = Animator.StringToHash("Intro");
 
         #endregion
 
@@ -47,6 +49,8 @@ namespace Gameplay.PlayerDir
 
         #region Properties
 
+        public AudioClip TakeDamageSFX => _takeDamageSFX;
+        public int IntroAnimation => _introAnimation;
         public int DeathAnimation => _deathAnimation;
         public int TakeDamageAnimation => _takeDamageAnimation;
         public AudioSource AudioSource => _audioSource;

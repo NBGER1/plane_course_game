@@ -315,9 +315,9 @@ MonoBehaviour:
   _playerAmmoText: {fileID: 639312731}
   _playerAmmoReloadIcon: {fileID: 943936276}
   _playerHealthText: {fileID: 980775620}
-  _mainGamePopupViewPrefab: {fileID: 0}
-  _canvasTransform: {fileID: 841242096915243219, guid: c1ca40f5771ca6f43b76831830f0875f,
+  _mainGamePopupViewPrefab: {fileID: 841242096915243216, guid: c1ca40f5771ca6f43b76831830f0875f,
     type: 3}
+  _canvasTransform: {fileID: 55414026}
 --- !u!1 &200452242
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,7 +35,6 @@ namespace Infrastructure.Services
 
             if (SceneManager.GetActiveScene().name.Equals("Main"))
             {
-             
                 _coroutineService.WaitFor(0.1f)
                     .OnEnd(() =>
                     {
