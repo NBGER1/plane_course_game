@@ -95,7 +95,10 @@ namespace Gameplay
             SubscribeEvents();
             GameplayServices.CoroutineService
                 .WaitFor(1f)
-                .OnStart(() => { })
+                .OnStart(() =>
+                {
+                    PlayerPrefsDB.PlayerModel.ResetScore();
+                })
                 .OnEnd(() => { GameplayServices.CoroutineService.RunCoroutine(SetCourse()); });
         }
 

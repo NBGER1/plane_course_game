@@ -6,6 +6,7 @@ using Infrastructure.Events;
 using Infrastructure.Factories;
 using Infrastructure.Services;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
@@ -99,6 +100,9 @@ namespace Gameplay.PlayerDir
             OnPlayerDisabled?.Invoke();
             _view.Animator.SetTrigger(_view.DeathAnimation);
             GameplayServices.EventBus.Publish(EventTypes.OnGameOver, null);
+            GameplayServices.CoroutineService
+                .WaitFor(2f)
+                .OnEnd(() => { Object.Destroy(_view); });
         }
 
         private void OnRemoveHealth()
@@ -192,21 +196,21 @@ namespace Gameplay.PlayerDir
         public void ShowCinematicIntro()
         {
             _playerInvulnerable = true;
-            _view.Transform.position = new Vector3(0, 8,-60);
+            _view.Transform.position = new Vector3(0, 8, -60);
             GameplayServices.CoroutineService.RunCoroutine(MoveViewCinematic());
-
         }
 
-       IEnumerator MoveViewCinematic()
-       {
-           var destination = new Vector3(0, 8, -6);
-           var speed = 35f;
-           while (_view.Transform.position.z<destination.z)
-           {
-               yield return null;
-               _view.Transform.position+= Vector3.forward * Time.deltaTime * speed;
-           }
-           _playerInvulnerable = false;
+        IEnumerator MoveViewCinematic()
+        {
+            var destination = new Vector3(0, 8, -6);
+            var speed = 35f;
+            while (_view.Transform.position.z < destination.z)
+            {
+                yield return null;
+                _view.Transform.position += Vector3.forward * Time.deltaTime * speed;
+            }
+
+            _playerInvulnerable = false;
         }
 
         public void SetViewPosition(Vector3 position)

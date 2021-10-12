@@ -59,6 +59,14 @@ namespace Infrastructure.Database
             Infrastructure.Database.PlayerPrefsDB.SaveData();
         }
 
+        public void ResetScore()
+        {
+            var oldScore = _score;
+            _score = 0;
+            var eParams = new OnPlayerScoreChangeEventParams(oldScore, _score);
+            GameplayServices.EventBus.Publish(EventTypes.OnPlayerScoreChange, eParams);
+        }
+
         public void WithdrawScore(int score)
         {
             var oldScore = _score;
